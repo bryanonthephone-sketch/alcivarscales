@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Results — AlcivarScales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #0a1628;
+    --blue-mid: #1a3a6b;
+    --blue-bright: #1d6ff2;
+    --blue-light: #5b9cf6;
+    --blue-pale: #e8f0fe;
+    --gray-900: #111827;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-300: #d1d5db;
+    --gray-100: #f3f4f6;
+    --gray-50: #f9fafb;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: #f5f7fc; color: var(--gray-900); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    background: rgba(255,255,255,0.88); backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(29,111,242,0.08);
+    box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.4rem; color: var(--blue-deep); letter-spacing: -0.03em; text-decoration: none; }
+  .nav-logo span { color: var(--blue-bright); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue-bright); }
+  .nav-cta { background: var(--blue-deep) !important; color: white !important; padding: 0.55rem 1.3rem !important; border-radius: 100px; font-size: 0.85rem !important; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--blue-bright) !important; }
+
+  /* HERO */
+  .results-hero {
+    background: var(--blue-deep);
+    padding: 140px 8% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .results-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(29,111,242,0.2) 0%, transparent 70%);
+  }
+  .results-hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .results-hero-inner { position: relative; z-index: 1; max-width: 700px; }
+  .section-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+  .results-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -0.03em; color: white; line-height: 1.05; margin-bottom: 1.2rem; }
+  .results-hero h1 em { font-style: italic; font-weight: 300; color: var(--blue-light); }
+  .results-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 520px; margin-bottom: 2rem; }
+  .hero-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .hero-stat-num { font-family: 'Fraunces', serif; font-size: 2.5rem; font-weight: 900; color: white; line-height: 1; }
+  .hero-stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: white;
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0 8%;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+  }
+  .filter-btn {
+    padding: 1rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .filter-btn:hover { color: var(--blue-bright); }
+  .filter-btn.active { color: var(--blue-bright); border-bottom-color: var(--blue-bright); font-weight: 600; }
+
+  /* RESULTS GRID */
+  .results-section { padding: 80px 8%; }
+  .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+
+  .result-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 4px 20px rgba(10,22,40,0.05);
+    transition: transform 0.25s, box-shadow 0.25s;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .result-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s, box-shadow 0.25s; }
+  .result-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(29,111,242,0.1); }
+
+  /* IMAGE SLOT */
+  .result-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 240px;
+    position: relative;
+  }
+  .result-img-slot {
+    position: relative;
+    overflow: hidden;
+    background: var(--gray-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .result-img-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .img-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+    border: 2px dashed rgba(29,111,242,0.2);
+  }
+  .img-placeholder-icon { font-size: 2rem; opacity: 0.4; }
+  .img-placeholder-text { font-size: 0.72rem; font-weight: 600; color: var(--blue-bright); opacity: 0.6; text-transform: uppercase; letter-spacing: 0.06em; text-align: center; padding: 0 0.5rem; }
+
+  .result-img-divider {
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 2px; background: white;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+  .result-img-labels {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; z-index: 3;
+  }
+  .result-img-label {
+    flex: 1; text-align: center;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.35rem;
+  }
+  .label-before { background: rgba(0,0,0,0.6); color: rgba(255,255,255,0.8); }
+  .label-after { background: rgba(29,111,242,0.85); color: white; }
+
+  .result-body { padding: 1.8rem 2rem; }
+  .result-industry {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--blue-bright); background: var(--blue-pale);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    margin-bottom: 0.8rem;
+  }
+  .result-name { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 0.25rem; }
+  .result-location { font-size: 0.82rem; color: var(--gray-500); margin-bottom: 1.4rem; }
+
+  .result-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+  .r-metric { text-align: center; padding: 0.8rem 0.5rem; background: var(--gray-50); border-radius: 12px; }
+  .r-metric-val { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: var(--blue-deep); line-height: 1; }
+  .r-metric-val.positive { color: #16a34a; }
+  .r-metric-label { font-size: 0.68rem; color: var(--gray-500); margin-top: 0.2rem; }
+
+  .result-quote { font-size: 0.88rem; color: var(--gray-600); line-height: 1.6; font-style: italic; padding: 1rem 1.2rem; background: var(--blue-pale); border-left: 3px solid var(--blue-bright); border-radius: 0 8px 8px 0; }
+  .result-quote-author { font-size: 0.78rem; font-weight: 600; color: var(--blue-mid); font-style: normal; margin-top: 0.4rem; display: block; }
+
+  /* CTA STRIP */
+  .cta-strip {
+    background: var(--blue-deep);
+    padding: 80px 8%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-strip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(29,111,242,0.2) 0%, transparent 70%);
+  }
+  .cta-strip-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+  .cta-strip h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; color: white; margin-bottom: 1rem; letter-spacing: -0.03em; }
+  .cta-strip h2 em { font-style: italic; font-weight: 300; color: var(--blue-light); }
+  .cta-strip p { font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 2rem; }
+  .cta-strip-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-white { background: white; color: var(--blue-deep); padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+  .btn-ghost-white { background: transparent; color: white; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 2px solid rgba(255,255,255,0.25); transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+  .btn-ghost-white:hover { border-color: white; background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+  footer { background: var(--blue-deep); color: white; padding: 40px 8%; border-top: 1px solid rgba(255,255,255,0.08); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: white; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
+
+  @media (max-width: 900px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Alcivar<span>Scales</span></a>
+  <ul class="nav-links">
+    <li><a href="results.html" style="color:var(--blue-bright)">Before / After</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="tel:+16312207590" class="nav-cta">631-220-7590</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="results-hero">
+  <div class="results-hero-grid"></div>
+  <div class="results-hero-inner">
+    <div class="section-tag">📈 Real Client Results</div>
+    <h1>The <em>Proof</em> Is in the Numbers.</h1>
+    <p>We don't make promises we can't keep. Here are real results from real local businesses who went from invisible to #1 on Google Maps.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Businesses Ranked</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">90</div>
+        <div class="hero-stat-label">Days to Top 3, Guaranteed</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">3x</div>
+        <div class="hero-stat-label">Avg. Lead Increase</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All Industries</button>
+  <button class="filter-btn" onclick="filterCards('contractor', this)">Contractors</button>
+  <button class="filter-btn" onclick="filterCards('legal', this)">Legal</button>
+  <button class="filter-btn" onclick="filterCards('medical', this)">Medical</button>
+  <button class="filter-btn" onclick="filterCards('restaurant', this)">Restaurants</button>
+  <button class="filter-btn" onclick="filterCards('service', this)">Home Services</button>
+</div>
+
+<!-- RESULTS -->
+<div class="results-section">
+  <div class="results-grid" id="resultsGrid">
+
+    <!-- CARD 1 -->
+    <div class="result-card" data-industry="contractor">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <!-- REPLACE: swap img tag below with: <img src="your-image-before-1.jpg" alt="Before - Roofing Company"> -->
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-slot">
+          <!-- REPLACE: swap img tag below with: <img src="your-image-after-1.jpg" alt="After - Roofing Company"> -->
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Roofing</span>
+        <div class="result-name">Long Island Roofing Co.</div>
+        <div class="result-location">📍 Brentwood, New York</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+820%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">680</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">52</div><div class="r-metric-label">Leads/Mo</div></div>
+        </div>
+        <div class="result-quote">
+          "Before AlcivarScales we were getting maybe 2 calls a week. Now the phone doesn't stop. Best investment we've made."
+          <span class="result-quote-author">— Mike T., Owner</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="result-card" data-industry="legal">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Legal</span>
+        <div class="result-name">Santos Family Law</div>
+        <div class="result-location">📍 Islip, New York</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#2</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+640%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">510</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">38</div><div class="r-metric-label">Leads/Mo</div></div>
+        </div>
+        <div class="result-quote">
+          "Went from page 8 to the top 3 in under 60 days. Our consultation bookings tripled within the first month."
+          <span class="result-quote-author">— Diana S., Managing Partner</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="result-card" data-industry="medical">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Medical</span>
+        <div class="result-name">Sunrise Dental Group</div>
+        <div class="result-location">📍 Bay Shore, New York</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+910%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">790</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">65</div><div class="r-metric-label">New Patients</div></div>
+        </div>
+        <div class="result-quote">
+          "We went from 5 new patients a month to over 60. The ROI is insane — every dollar we spend comes back multiplied."
+          <span class="result-quote-author">— Dr. James R., DDS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="result-card" data-industry="service">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Home Services</span>
+        <div class="result-name">Elite HVAC Solutions</div>
+        <div class="result-location">📍 Deer Park, New York</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#3</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+480%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">420</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">31</div><div class="r-metric-label">Leads/Mo</div></div>
+        </div>
+        <div class="result-quote">
+          "My whole summer was booked solid two months in advance. Never had that problem before — in a good way."
+          <span class="result-quote-author">— Carlos M., Owner</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="result-card" data-industry="restaurant">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Restaurant</span>
+        <div class="result-name">Casa Verde Kitchen</div>
+        <div class="result-location">📍 Brentwood, New York</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+730%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">960</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+85%</div><div class="r-metric-label">Reservations</div></div>
+        </div>
+        <div class="result-quote">
+          "We went from empty tables on weeknights to fully booked Thursdays through Sundays. Local SEO changed everything."
+          <span class="result-quote-author">— Maria G., Co-Owner</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="result-card" data-industry="contractor">
+      <div class="result-images">
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-slot">
+          <div class="img-placeholder">
+            <div class="img-placeholder-icon">🖼️</div>
+            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
+          </div>
+        </div>
+        <div class="result-img-divider"></div>
+        <div class="result-img-labels">
+          <div class="result-img-label label-before">Before</div>
+          <div class="result-img-label label-after">After</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <span class="result-industry">Plumbing</span>
+        <div class="result-name">ProFlow Plumbing</div>
+        <div class="result-location">📍 Wyandanch, New York</div>
+        <div class="result-metrics">
+          <div class="r-metric"><div class="r-metric-val positive">#2</div><div class="r-metric-label">Ranking</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+560%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">380</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">29</div><div class="r-metric-label">Leads/Mo</div></div>
+        </div>
+        <div class="result-quote">
+          "Used to chase leads on Angi and HomeAdvisor. Now they find us. AlcivarScales paid for itself in the first week."
+          <span class="result-quote-author">— Tony P., Owner</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-inner">
+    <h2>Ready to Be Our <em>Next</em> Success Story?</h2>
+    <p>Join 50+ local businesses dominating their markets on Google Maps. Your competitors are already ranking — don't let them take every lead.</p>
+    <div class="cta-strip-btns">
+      <a href="get-started.html" class="btn-white">Get Started Free →</a>
+      <a href="tel:+16312207590" class="btn-ghost-white">Call 631-220-7590</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 AlcivarScales. All rights reserved. Brentwood, New York.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Filter
+  function filterCards(industry, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.result-card').forEach(card => {
+      if (industry === 'all' || card.dataset.industry === industry) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => el.classList.add('visible'), delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.result-card').forEach((el, i) => {
+    el.dataset.delay = (i % 2) * 150;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
