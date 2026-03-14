@@ -244,8 +244,8 @@
     <p>We don't make promises we can't keep. Here are real results from real local businesses who went from invisible to #1 on Google Maps.</p>
     <div class="hero-stats">
       <div>
-        <div class="hero-stat-num">50+</div>
-        <div class="hero-stat-label">Businesses Ranked</div>
+        <div class="hero-stat-num">✓</div>
+        <div class="hero-stat-label">Satisfied Clients</div>
       </div>
       <div>
         <div class="hero-stat-num">90</div>
@@ -261,30 +261,27 @@
 
 <!-- FILTER -->
 <div class="filter-bar">
-  <button class="filter-btn active" onclick="filterCards('all', this)">All Industries</button>
-  <button class="filter-btn" onclick="filterCards('contractor', this)">Contractors</button>
-  <button class="filter-btn" onclick="filterCards('legal', this)">Legal</button>
-  <button class="filter-btn" onclick="filterCards('medical', this)">Medical</button>
-  <button class="filter-btn" onclick="filterCards('restaurant', this)">Restaurants</button>
-  <button class="filter-btn" onclick="filterCards('service', this)">Home Services</button>
+  <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+  <button class="filter-btn" onclick="filterCards('hvac', this)">HVAC</button>
+  <button class="filter-btn" onclick="filterCards('esthetician', this)">Esthetician</button>
 </div>
 
 <!-- RESULTS -->
 <div class="results-section">
   <div class="results-grid" id="resultsGrid">
 
-    <!-- CARD 1 -->
-    <div class="result-card" data-industry="contractor">
+    <!-- CARD 1: HVAC -->
+    <div class="result-card" data-industry="hvac">
       <div class="result-images">
         <div class="result-img-slot">
-          <!-- REPLACE: swap img tag below with: <img src="your-image-before-1.jpg" alt="Before - Roofing Company"> -->
+          <!-- REPLACE: <img src="your-hvac-before.jpg" alt="Before - HVAC"> -->
           <div class="img-placeholder">
             <div class="img-placeholder-icon">🖼️</div>
             <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
           </div>
         </div>
         <div class="result-img-slot">
-          <!-- REPLACE: swap img tag below with: <img src="your-image-after-1.jpg" alt="After - Roofing Company"> -->
+          <!-- REPLACE: <img src="your-hvac-after.jpg" alt="After - HVAC"> -->
           <div class="img-placeholder">
             <div class="img-placeholder-icon">🖼️</div>
             <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
@@ -297,32 +294,34 @@
         </div>
       </div>
       <div class="result-body">
-        <span class="result-industry">Roofing</span>
-        <div class="result-name">Long Island Roofing Co.</div>
-        <div class="result-location">📍 Brentwood, New York</div>
+        <span class="result-industry">HVAC</span>
+        <div class="result-name">Local HVAC Company</div>
+        <div class="result-location">📍 Long Island, New York</div>
         <div class="result-metrics">
           <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+820%</div><div class="r-metric-label">Visibility</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">680</div><div class="r-metric-label">Clicks/Mo</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">52</div><div class="r-metric-label">Leads/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+700%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">580</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">45</div><div class="r-metric-label">Leads/Mo</div></div>
         </div>
         <div class="result-quote">
-          "Before AlcivarScales we were getting maybe 2 calls a week. Now the phone doesn't stop. Best investment we've made."
-          <span class="result-quote-author">— Mike T., Owner</span>
+          "We were buried on Google. Within 90 days AlcivarScales had us at the top and the phone hasn't stopped since."
+          <span class="result-quote-author">— HVAC Business Owner</span>
         </div>
       </div>
     </div>
 
-    <!-- CARD 2 -->
-    <div class="result-card" data-industry="legal">
+    <!-- CARD 2: Esthetician -->
+    <div class="result-card" data-industry="esthetician">
       <div class="result-images">
         <div class="result-img-slot">
+          <!-- REPLACE: <img src="your-esthet-before.jpg" alt="Before - Esthetician"> -->
           <div class="img-placeholder">
             <div class="img-placeholder-icon">🖼️</div>
             <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
           </div>
         </div>
         <div class="result-img-slot">
+          <!-- REPLACE: <img src="your-esthet-after.jpg" alt="After - Esthetician"> -->
           <div class="img-placeholder">
             <div class="img-placeholder-icon">🖼️</div>
             <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
@@ -335,170 +334,18 @@
         </div>
       </div>
       <div class="result-body">
-        <span class="result-industry">Legal</span>
-        <div class="result-name">Santos Family Law</div>
-        <div class="result-location">📍 Islip, New York</div>
-        <div class="result-metrics">
-          <div class="r-metric"><div class="r-metric-val positive">#2</div><div class="r-metric-label">Ranking</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+640%</div><div class="r-metric-label">Visibility</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">510</div><div class="r-metric-label">Clicks/Mo</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">38</div><div class="r-metric-label">Leads/Mo</div></div>
-        </div>
-        <div class="result-quote">
-          "Went from page 8 to the top 3 in under 60 days. Our consultation bookings tripled within the first month."
-          <span class="result-quote-author">— Diana S., Managing Partner</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 3 -->
-    <div class="result-card" data-industry="medical">
-      <div class="result-images">
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-divider"></div>
-        <div class="result-img-labels">
-          <div class="result-img-label label-before">Before</div>
-          <div class="result-img-label label-after">After</div>
-        </div>
-      </div>
-      <div class="result-body">
-        <span class="result-industry">Medical</span>
-        <div class="result-name">Sunrise Dental Group</div>
-        <div class="result-location">📍 Bay Shore, New York</div>
+        <span class="result-industry">Esthetician</span>
+        <div class="result-name">Local Esthetics Studio</div>
+        <div class="result-location">📍 Long Island, New York</div>
         <div class="result-metrics">
           <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+910%</div><div class="r-metric-label">Visibility</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">790</div><div class="r-metric-label">Clicks/Mo</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">65</div><div class="r-metric-label">New Patients</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+540%</div><div class="r-metric-label">Visibility</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">390</div><div class="r-metric-label">Clicks/Mo</div></div>
+          <div class="r-metric"><div class="r-metric-val positive">+80%</div><div class="r-metric-label">Bookings</div></div>
         </div>
         <div class="result-quote">
-          "We went from 5 new patients a month to over 60. The ROI is insane — every dollar we spend comes back multiplied."
-          <span class="result-quote-author">— Dr. James R., DDS</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="result-card" data-industry="service">
-      <div class="result-images">
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-divider"></div>
-        <div class="result-img-labels">
-          <div class="result-img-label label-before">Before</div>
-          <div class="result-img-label label-after">After</div>
-        </div>
-      </div>
-      <div class="result-body">
-        <span class="result-industry">Home Services</span>
-        <div class="result-name">Elite HVAC Solutions</div>
-        <div class="result-location">📍 Deer Park, New York</div>
-        <div class="result-metrics">
-          <div class="r-metric"><div class="r-metric-val positive">#3</div><div class="r-metric-label">Ranking</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+480%</div><div class="r-metric-label">Visibility</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">420</div><div class="r-metric-label">Clicks/Mo</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">31</div><div class="r-metric-label">Leads/Mo</div></div>
-        </div>
-        <div class="result-quote">
-          "My whole summer was booked solid two months in advance. Never had that problem before — in a good way."
-          <span class="result-quote-author">— Carlos M., Owner</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 5 -->
-    <div class="result-card" data-industry="restaurant">
-      <div class="result-images">
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-divider"></div>
-        <div class="result-img-labels">
-          <div class="result-img-label label-before">Before</div>
-          <div class="result-img-label label-after">After</div>
-        </div>
-      </div>
-      <div class="result-body">
-        <span class="result-industry">Restaurant</span>
-        <div class="result-name">Casa Verde Kitchen</div>
-        <div class="result-location">📍 Brentwood, New York</div>
-        <div class="result-metrics">
-          <div class="r-metric"><div class="r-metric-val positive">#1</div><div class="r-metric-label">Ranking</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+730%</div><div class="r-metric-label">Visibility</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">960</div><div class="r-metric-label">Clicks/Mo</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+85%</div><div class="r-metric-label">Reservations</div></div>
-        </div>
-        <div class="result-quote">
-          "We went from empty tables on weeknights to fully booked Thursdays through Sundays. Local SEO changed everything."
-          <span class="result-quote-author">— Maria G., Co-Owner</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 6 -->
-    <div class="result-card" data-industry="contractor">
-      <div class="result-images">
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-slot">
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-divider"></div>
-        <div class="result-img-labels">
-          <div class="result-img-label label-before">Before</div>
-          <div class="result-img-label label-after">After</div>
-        </div>
-      </div>
-      <div class="result-body">
-        <span class="result-industry">Plumbing</span>
-        <div class="result-name">ProFlow Plumbing</div>
-        <div class="result-location">📍 Wyandanch, New York</div>
-        <div class="result-metrics">
-          <div class="r-metric"><div class="r-metric-val positive">#2</div><div class="r-metric-label">Ranking</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">+560%</div><div class="r-metric-label">Visibility</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">380</div><div class="r-metric-label">Clicks/Mo</div></div>
-          <div class="r-metric"><div class="r-metric-val positive">29</div><div class="r-metric-label">Leads/Mo</div></div>
-        </div>
-        <div class="result-quote">
-          "Used to chase leads on Angi and HomeAdvisor. Now they find us. AlcivarScales paid for itself in the first week."
-          <span class="result-quote-author">— Tony P., Owner</span>
+          "I went from barely getting walk-ins to being booked out 3 weeks in advance. Total game changer for my studio."
+          <span class="result-quote-author">— Esthetics Studio Owner</span>
         </div>
       </div>
     </div>
