@@ -110,58 +110,32 @@
   .result-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s, box-shadow 0.25s; }
   .result-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(29,111,242,0.1); }
 
-  /* IMAGE SLOT */
-  .result-images {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* IMAGE SLOT — single full-width after image */
+  .result-image {
+    position: relative;
     height: 240px;
-    position: relative;
-  }
-  .result-img-slot {
-    position: relative;
     overflow: hidden;
     background: var(--gray-50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
   }
-  .result-img-slot img {
-    width: 100%; height: 100%;
+  .result-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     display: block;
   }
-  .img-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
-    border: 2px dashed rgba(29,111,242,0.2);
-  }
-  .img-placeholder-icon { font-size: 2rem; opacity: 0.4; }
-  .img-placeholder-text { font-size: 0.72rem; font-weight: 600; color: var(--blue-bright); opacity: 0.6; text-transform: uppercase; letter-spacing: 0.06em; text-align: center; padding: 0 0.5rem; }
-
-  .result-img-divider {
-    position: absolute; left: 50%; top: 0; bottom: 0;
-    width: 2px; background: white;
-    transform: translateX(-50%);
-    z-index: 2;
-  }
-  .result-img-labels {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    display: flex; z-index: 3;
-  }
   .result-img-label {
-    flex: 1; text-align: center;
-    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-    padding: 0.35rem;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    background: rgba(29,111,242,0.85);
+    color: white;
   }
-  .label-before { background: rgba(0,0,0,0.6); color: rgba(255,255,255,0.8); }
-  .label-after { background: rgba(29,111,242,0.85); color: white; }
 
   .result-body { padding: 1.8rem 2rem; }
   .result-industry {
@@ -212,8 +186,6 @@
   .footer-links { display: flex; gap: 2rem; }
   .footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: white; }
-
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
 
   @media (max-width: 900px) {
     .results-grid { grid-template-columns: 1fr; }
@@ -272,26 +244,9 @@
 
     <!-- CARD 1: HVAC -->
     <div class="result-card" data-industry="hvac">
-      <div class="result-images">
-        <div class="result-img-slot">
-          <!-- REPLACE: <img src="your-hvac-before.jpg" alt="Before - HVAC"> -->
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-slot">
-          <!-- REPLACE: <img src="your-hvac-after.jpg" alt="After - HVAC"> -->
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-divider"></div>
-        <div class="result-img-labels">
-          <div class="result-img-label label-before">Before</div>
-          <div class="result-img-label label-after">After</div>
-        </div>
+      <div class="result-image">
+        <img src="hvac.png" alt="HVAC Google Maps Results">
+        <div class="result-img-label">After</div>
       </div>
       <div class="result-body">
         <span class="result-industry">HVAC</span>
@@ -312,26 +267,9 @@
 
     <!-- CARD 2: Esthetician -->
     <div class="result-card" data-industry="esthetician">
-      <div class="result-images">
-        <div class="result-img-slot">
-          <!-- REPLACE: <img src="your-esthet-before.jpg" alt="Before - Esthetician"> -->
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>Before Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-slot">
-          <!-- REPLACE: <img src="your-esthet-after.jpg" alt="After - Esthetician"> -->
-          <div class="img-placeholder">
-            <div class="img-placeholder-icon">🖼️</div>
-            <div class="img-placeholder-text">Replace with<br>After Screenshot</div>
-          </div>
-        </div>
-        <div class="result-img-divider"></div>
-        <div class="result-img-labels">
-          <div class="result-img-label label-before">Before</div>
-          <div class="result-img-label label-after">After</div>
-        </div>
+      <div class="result-image">
+        <img src="dferna.png" alt="D'Ferna Beauty Google Maps Results">
+        <div class="result-img-label">After</div>
       </div>
       <div class="result-body">
         <span class="result-industry">Esthetician</span>
